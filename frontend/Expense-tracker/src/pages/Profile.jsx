@@ -25,7 +25,7 @@ export default function Profile() {
         setName(res.data.name);
         setEmail(res.data.email);
         if (res.data.profilePhoto) {
-          setPreviewUrl(`http://localhost:3000/uploads/${res.data.profilePhoto}`);
+          setPreviewUrl(res.data.profilePhoto);
         }
       } catch (err) {
         showNotification('Error fetching profile');
@@ -116,7 +116,7 @@ export default function Profile() {
                 <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
                 {previewUrl || user?.profilePhoto ? (
                   <img
-                    src={previewUrl || `http://localhost:3000/uploads/${user.profilePhoto}`}
+                    src={previewUrl || user.profilePhoto}
                     alt="Profile"
                     className="relative w-32 h-32 rounded-full object-cover border-4 border-white/30 shadow-xl transition-all duration-300 group-hover:scale-105 opacity-0 animate-fade-in"
                     onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
