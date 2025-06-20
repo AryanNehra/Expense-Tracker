@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
+require('dotenv').config();
+const CLOUDINARY_BASE_URL = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/`;
 
 exports.getProfile = async (req, res, next) => {
   try {
@@ -8,7 +10,12 @@ exports.getProfile = async (req, res, next) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.json(user);
+    const userObj = user.toObject();
+    if (userObj.profilePhoto && !userObj.profilePhoto.startsWith('http')) {
+      userObj.profilePhoto = `${CLOUDINARY_BASE_URL}${userObj.profilePhoto}`;
+    }
+
+    res.json(userObj);
   } catch {
     res.status(500).json({ error: 'Failed to fetch profile' });
   }
@@ -23,7 +30,7 @@ exports.updateProfile = async (req, res, next) => {
     };
 
     if (req.file) {
-      updates.profilePhoto = req.file.filename;
+      updates.profilePhoto = req.file.path;
     }
 
     const updatedUser = await User.findByIdAndUpdate(userId, updates, {
