@@ -18,11 +18,11 @@ app.use('/api', authRouter);
 app.use('/api/expenses', expenseRouter);
 app.use('/api/profile',profileRouter);
 
-
+const PORT = process.env.PORT || 3000;
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
-    app.listen(process.env.PORT, () =>
-      console.log(`Server running on http://localhost:${process.env.PORT}`)
+    app.listen(PORT, () =>
+      console.log(`Server running on http://localhost:${PORT}`)
     );
   })
   .catch((err) => console.error('DB connection failed:', err));
