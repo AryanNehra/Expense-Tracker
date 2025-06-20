@@ -5,7 +5,7 @@ const User = require('../models/user');
 exports.postRegister = async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
-        const profilePhoto = req.file ? req.file.filename : null;
+        const profilePhoto = req.file ? req.file.path : null;
 
         const existingUser = await User.findOne({ email });
         if (existingUser) {

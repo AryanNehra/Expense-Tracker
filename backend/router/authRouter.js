@@ -1,5 +1,6 @@
 const express=require('express');
-const upload = require('../middleware/upload');
+const { storage } = require('../utils/cloudinary');
+const upload = multer({ storage });
 const authRouter=express.Router();
 
 const authController=require('../controllers/authController');
