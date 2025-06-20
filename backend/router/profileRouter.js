@@ -1,5 +1,7 @@
 const express=require('express')
-const upload = require('../middleware/upload');
+const multer = require('multer');
+const { storage } = require('../utils/cloudinary');
+const upload = multer({ storage });
 const auth=require('../middleware/auth')
 const profileRouter=express.Router();
 

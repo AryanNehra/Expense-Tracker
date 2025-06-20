@@ -1,4 +1,5 @@
 const express=require('express');
+const multer = require('multer');
 const { storage } = require('../utils/cloudinary');
 const upload = multer({ storage });
 const authRouter=express.Router();
